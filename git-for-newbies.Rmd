@@ -1,0 +1,215 @@
+---
+title: "Git para novatos"
+author: "Vitor Rios"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  slidy_presentation:
+    font_adjustment: + 1
+    highlight: kate
+    smart: false
+classoption: aspectratio=169
+---
+[Controle de versão: como não deixar isso acontecer com você](http://www.phdcomics.com/comics/archive/phd101212s.gif)  
+- (orientador): "Tire essa parte x, e faça essa outra análise y"  
+- (orientador um mês depois): "Tire essa parte y, e faça essa outra análise x"   
+- (você) Raiva, ódio, desespero,  procurar em que versão estava salvo x
+
+Controle de versão significa dar um nome e um número específico para cada versão de um arquivo. Assim você não perde seu trabalho e pode restaurar aquela parte que seu orientador mandou você tirar, quando ele(a) mandar colocar de volta   
+
+Salvar cada versão em um arquivo separado com nomes diferentes estilo  `"versao 1.docx"`, `"versão2.docx"`, `"versão final.docx"`, `"versao final correções.docx"`, `"versão final correções definitiva.docx"`, `"versão final correções USAR ESTA.docx"`, `"versão final correções USAR ESTA 2.docx"`, NÃO é controle de versão
+
+Lembre-se: fazer manualmente quando se pode automatizar é errado!
+
+***
+# Git
+Git é o principal sistema de controles de versão atualmente  
+- Vantagens: uma infinidade de tutoriais e sites de ajuda, rápido e leve, integrado com maioria dos softwares de programação, multiplataforma   
+- Desvantagens: linha de comando, comandos crípticos, dá medinho no começo  
+
+Conceitos básicos (por alto):
+
+- Repositório: lugar onde o código vive. O repositório padrão é uma pasta no seu computador. Repositórios em outros computadores são chamados de `remote`. Cada remote recebe um nome e tem um endereço próprio. Por convenção, se existe um repositório remoto central, ele será chamado de `origin`  
+
+- Commit: uma versão salva do seu código, com nome, número, e nome de quem fez, acompanhado de uma breve descrição de o que mudou (`commit message`). Pode ser de um só arquivo ou de vários.   
+
+- Diff: comando que compara as diferenças entre `commits` (versões) do código, linha por linha. Serve para ver o que mudou de uma versão para outra   
+
+- Merge: quando duas versões do mesmo arquivo estão em conflito (`merge conflict`), o Git pede para você fundir (`merge`) as duas, escolhendo quais linhas serão mantidas na versão final. É a parte mais chata do Git   
+
+
+***
+
+- Status: comando que te informa o esstado atual do seu repositório local, se houve alguma alteração em algum arquivo, e se ele está incronizado com o `remote`  
+
+- Pull e Push: `pull` copia os `commits` de um repoitório remoto (`remote`) para seu repositório local. `push` envia os `commits` do seu local para o `remote`. _Enviar para o `remote` garante um backup atualizado fora da sua máquina  _   
+
+- Branch: um conjunto de versões (`commits`) que formam uma linha do tempo separada de outros branchs. Geralmente usado quando se quer testar jeitos diferentes de fazer algo, ou versões experimentais. O branch padrão é o `master`, e cada branch tem seu nome   
+
+- Clonar: copiar um repositório existente  
+
+- Init: criar um repositório novo  
+
+- `.gitignore` - arquivo com os nomes e tipos de arquivo que você quer que o git ignore
+
+***
+# Repositórios online
+São empresas que fornecem espaço para você criar seu `remote` nos servidores delas  
+
+- Vantagens: espaço gratuito, ferramentas de colaboração, comunidade, padrão da indústria, backup online acessível de qualquer lugar, encriptação e ssh  
+
+- Desvantagens: Seu código fica num servidor alheio, algumas opções são pagas   
+
+Bitbucket: sem limite de repositórios privados, limita número de colaboradores na opção gratuita
+
+GitHub: Somente repositórios públicos na opção gratuita, pacote educacional gratuito permite repositórios privados, padrão para usuários do R, interface mais amigável
+
+GitKraken: software com interface bonitinha para gerenciar seus repositórios, funciona com qualquer remote
+
+Qt Creator: oferece integração com Git diretamente na interface, principais ações são feitas sem linha de comando
+
+***
+# Neste curso, usaremos Git, GitHub e Qt Creator
+## Passo a passo:
+- Instalar Qt
+- Instalar Git
+- Configurar nome de usuário e email no Git 
+- Criar uma conta no GitHub
+
+
+- Criar um repositório no GitHub
+- Criar um projeto no QtCreator clonando o repositório do GitHub
+- Fazer alterações nos arquivo do projeto
+- Salvar alterações
+- Dar `commit` no repositório local via QtCreator
+- Dar `pull` no repositório local via QtCreator (para evitar problemas de conflito caso alguem mais tenha alterado o projeto)
+- Resolver problemas de `merge`
+- Dar `push` no `remote` via QtCreator
+
+
+*** 
+## Instalando o Git 
+O Git está disponível com instruções de instalação em  [Git](https://git-scm.com/book/pt-br/v1/Primeiros-passos-Instalando-Git).
+
+### Se você usa Linux
+Provavelmente já tem uma versão do Git instalado, senão escolha uma opção abaixo.
+1. Se você usa um Linux derivado do Debian, como Ubuntu ou Mint, abra um terminal e digite `apt-get install git`.
+2. Se você usa um Linux derivado do Fedora, digite `yum install git-core`.
+3. Se você não sabe de qual distribuição seu Linux é derivado, muito provavelmente é uma versão do Debian/Ubuntu.
+
+### Se você usa Mac:
+1. Baixe o instalador em [Git OSX](http://sourceforge.net/projects/git-osx-installer/), ou, por linha de comando, se você tiver MacPorts instalado, digite `sudo port install git-core +svn +doc +bash_completion +gitweb`
+
+### Se você usa Windows:
+1. Baixe o instalador em [Git for Windows](https://git-for-windows.github.io/) .
+2. Execute o instalador e siga as instruções, aceitando as opções padrão.
+
+
+***
+# Como funciona o Git?
+O git tem uma representação inicial dos arquivos no seu reposítório, o estado deles antes de qualquer alteração. Quando você mandar, ele irá comparar as versões atuais de cada arquivo com as versões armazenadas, e irá guardar o que houver de diferente entre a ultima versão registrada e a atual, junto com uma mensagem dizendo o que foi alterado
+
+Importante: O Git não tem iniciativa, só funciona quando você mandar. Ele também só registra os arquivos que você mandar
+
+Fazer o git registrar que o arquivo mundo é um processo de dois passos passos: `git add` e `git commit`
+
+`git add` diz ao git quais arquivos você quer registrar como alterados.
+
+```{r, engine = 'bash', eval = FALSE}
+git add README
+```
+
+Se você alterar mais de um arquivo de cada vez, é aconselhável fazer o `git add`e o `git commit` para cada arquivo separadamente (exceto para casos como alterações no .h e .cpp de uma função, onde as aterações são relacionada)
+
+
+***
+# Criando seu repositório via linha de comando
+No seu diretório alvo, abra uma janela de terminal (ou Git Bash no Windows) e digite:
+```{r, engine = 'bash', eval = FALSE}
+git init repositorioLocal
+```
+<img src="figuras/git_init.png" alt="criando seu repositório">
+
+***
+# Informações do seu repositório
+`git init` cria um diretório com nome `repositorioLocal`, vazio. Podemos ver o estado atual do repósito usando `git status`
+<img src="figuras/git_status.png" alt="Informações do seu repositório">
+
+***
+# Clonar seu repositório
+<img src="figuras/clonarRepositorio.png" alt="Clonar seu repositório">
+
+***
+# Criar projeto
+<img src="figuras/criarProjeto1.png" alt="Criar projeto">
+
+***
+# Criar projeto
+<img src="figuras/criarProjeto2.png" alt="Criar projeto">
+
+***
+# Criar projeto
+<img src="figuras/criarProjeto3.png" alt="Criar projeto">
+
+***
+# Criar projeto
+<img src="figuras/criarProjeto4.png" alt="Criar projeto">
+***
+
+# Alterando projeto localmente
+<img src="figuras/alterandoProjeto1.png" alt="Alterando projeto localmente">
+
+***
+# Preparando seu commit
+<img src="figuras/preparandoCommit1.png" alt="Preparando seu commit">
+
+***
+# Preparando seu commit
+<img src="figuras/preparandoCommit2.png" alt="Preparando seu commit">
+
+***
+# Puxando e empurrando
+<img src="figuras/pullEpush.png" alt="Puxando e empurrando">
+
+***
+# Puxando
+<img src="figuras/pull.png" alt="Puxando">
+
+***
+# Empurrando
+<img src="figuras/push.png" alt="Empurrando">
+
+***
+# Push com sucesso
+<img src="figuras/pushComSucesso.png" alt="Push com sucesso">
+
+***
+# GitHub Atualizado
+<img src="figuras/githubAtualizado.png" alt="GitHub Atualizado">
+
+***
+# Editando arquivo diretamente no GitHub
+<img src="figuras/editarGithub1.png" alt="Editando arquivo diretamente no GitHub">
+
+***
+# Editando arquivo diretamente no GitHub
+<img src="figuras/editarGithub2.png" alt="Editando arquivo diretamente no GitHub">
+
+***
+# Editando arquivo diretamente no GitHub
+<img src="figuras/editarGithub3.png" alt="Editando arquivo diretamente no GitHub">
+
+***
+# Conflito de fusão
+<img src="figuras/mergeCOnflict.png" alt="Conflito de fusão">
+
+***
+# Checando seu histórico
+<img src="figuras/history.png" alt="Checando seu histórico">
+
+***
+# Fusão dos commits
+<img src="figuras/fazendoMerge.png" alt="Fusão dos commits">
+
+***
+# Sucesso
+<img src="figuras/mergeSucesso.png" alt="Sucesso">
