@@ -192,12 +192,39 @@ Qual a vantagem desse trabalho todo?
 
 Cada `commit` tem um RG, chamado de `commit ID`, que nos permite comparar versões dos arquivos, ou reverter para uma versão anterior. Ele também contém um ponteiro para o commit imediatamente anterior a ele. O conjunto dos commits, ligados através de seus ponteiros, permite reconstruir a história do repositório, e navegar por ela
 
-Seu repositório é como uma filogenia de arquivos: desde a origem, cada modificação fica registrada no ramo da árvore (cada commit é um fóssil), e o táxon terminal do ramo é o estado atual do repositório. Se quisermos reverter para um estado anterior, é só indicar qual fóssil quermos acessar:
-
-Se quisermos reverter apenas um arquivo pro estado FOSSIL (onde FOSSIL é o hash do commit desejado)
+Seu repositório é como uma filogenia de arquivos: desde a origem, cada modificação fica registrada no ramo da árvore (cada commit é um fóssil), e o táxon terminal do ramo é o estado atual do repositório. Se quisermos reverter para um estado anterior, é só indicar qual fóssil queremos acessar:
 
 ```{r, engine = 'bash', eval = FALSE}
 git reset FOSSIL arquivo
 ```
 
-CUIDADO: isso muda todo o conteúdo do arquivo pra versão gravada como FOSSIL, tudo que for alterado entre FOSSIL e o estado atual é perdido
+`git show FOSSIL:arquivo > arquivoMedroso`
+cria um arquivo chamado arquivoMedroso, como o conteudo de `arquivo`no commit FOSSIL. è só abrir arquivoMedroso e copiar e colar o que quiser pra pra arquivo, e dar um comit novo, e depois apagar arquivoMedroso
+
+***
+Se quisermos reverter diretamente `arquivo`pro estado FOSSIL
+
+```{r, engine = 'bash', eval = FALSE}
+git reset FOSSIL arquivo
+```
+
+CUIDADO: isso muda todo o conteúdo do arquivo pra versão gravada como FOSSIL, tudo que for alterado entre FOSSIL e o estado atual é perdido.
+
+Usando o gitkraken, basta clicar em um commit para ver os arquivos que foram alterados nele. clicar no arquivo mostra o `diff`, isto é, o que foi mudado entre este commit e o commit anterior. Isto não altera o conteúdo dos arquivos
+
+***
+# Branches
+## Especiação de arquivos
+Um branch é como uma linha de desenvolvimento alternativa, com seus próprios commits, independente de outros branches
+
+```{r, engine = 'bash', eval = FALSE}
+git branch novamutacao #cria o ramo novamutacao
+git checkout novamutacao #muda para o ramo novamutacao
+```
+
+<img src="figuras/gitkraken-branch.png" alt="criando seu repositório">
+
+***
+Se criarmos um novo arquivo num ramo, ele só existirá nesse ramo:
+
+<img src="figuras/git_branch.png" alt="criando seu repositório">
