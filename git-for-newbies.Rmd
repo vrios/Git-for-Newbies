@@ -282,3 +282,17 @@ No GitHub, clique em `New repository` para criar um novo ou em `ìmport repositor
 Escolha um nome para seu repositório, se ele vai ter `README`, `.gitignore` e um arquivo de licença
 
 <img src="figuras/github-details.png" alt="criando seu repositório" width= "90%">
+
+***
+O repositório foi criado vazio, agora precisamos colocar nosso materiais nele. A isso chamamos de `push`. É só seguir as instruções do próprio GitHub:
+
+<img src="figuras/github-empty-repo.png" alt="criando seu repositório" width= "90%">
+
+***
+<img src="figuras/github-add-remote.png" alt="criando seu repositório" width= "90%">
+
+***
+<img src="figuras/github-repo.png" alt="criando seu repositório" width= "90%">
+
+***
+Se quisermos copiar um repositório do github para nosso computador, podemos usar o comando git clone <img src="figuras/github-repo.png" alt="criando seu repositório" width= "90%">
