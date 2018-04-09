@@ -123,7 +123,7 @@ No seu diretório alvo, abra uma janela de terminal (ou Git Bash no Windows) e di
 ```{r, engine = 'bash', eval = FALSE}
 git init repositorioLocal
 ```
-<img src="figuras/git_init.png" alt="criando seu repositório" width= "90%">
+<img src="figuras/git_init.png" width= "90%">
 
 ***
 # Informações do seu repositório
@@ -160,7 +160,7 @@ Fazer o git registrar que o arquivo mudou é um processo de dois passos passos: `
 git add README
 ```
 
-<img src="figuras/git_add.png" alt="criando seu repositório" width= "90%">
+<img src="figuras/git_add.png" width= "90%">
 
 ***
 #Git commit
@@ -185,7 +185,7 @@ Crie e altere vários arquivos , registrando as versões no git
 ***
 # GitKraken
 GitKraken é uma interface gráfica para o Git. Ele não permite modificar os arquivos diretamente, mas mostra uma linha do tempo do repositório, e permite usar os comandos básicos do Git como `add`, `commit`. `branch` e `merge`. 
-<img src="figuras/gitkraken.png" alt="criando seu repositório" width= "90%">
+<img src="figuras/gitkraken.png" width= "90%">
 
 ***
 # Até aí nada de mais
@@ -223,12 +223,12 @@ git branch novamutacao #cria o ramo novamutacao
 git checkout novamutacao #muda para o ramo novamutacao
 ```
 
-<img src="figuras/gitkraken-branch.png" alt="criando seu repositório" width= "90%">
+<img src="figuras/gitkraken-branch.png" width= "90%">
 
 ***
 Se criarmos um novo arquivo num ramo, ele só existirá nesse ramo:
 
-<img src="figuras/git_branch.png" alt="criando seu repositório" width= "90%">
+<img src="figuras/git_branch.png" width= "90%">
 
 ***
 #Pra quê isso?
@@ -249,7 +249,7 @@ Para fazer o merge, puxamos o HEAD de um branch pro outro. HEAD é o último commi
 # puxando de master para outro branch
 git merge master
 ```
-<img src="figuras/git-merge-conflict.png" alt="criando seu repositório" width= "90%">
+<img src="figuras/git-merge-conflict.png" width= "90%">
 
 ***
 `git merge`junta os arquivos linha por linha. Se não houver conflito, o git junta tudo sem falar nada. Se a mesma linha for diferente nas duas versões do arquivo, o git marca a região de conflito da seguinte forma:
@@ -262,37 +262,60 @@ texto outro branch
 >>>>>>> arquivo
 ```
 
-<img src="figuras/git-merge-conflict-content.png" alt="criando seu repositório" width= "90%">
+<img src="figuras/git-merge-conflict-content.png" width= "90%">
 
 Para corrigir conflitos de merge, altere o arquivo mantendo a parte que desejar, e dê um novo commit. O git não deixa você alterar nada até que o conflito seja resolvido
 
 ***
 # Repositórios externos
-Tudo que fizemos agora foi no repositório local, ou seja, no seu próprio computador. Git é descentralizado, isto é, cada pessoa tem seu repositório local, onde pode fazer suas alterações, e pode enviar essas alterações para um repositório externo. 
+Tudo que fizemos agora foi no repositório local, ou seja, no seu próprio computador. Git é descentralizado, isto é, cada pessoa tem seu repositório local, onde pode fazer suas alterações, e pode enviar essas alterações para um repositório externo, chamado de `remote`. 
 
-Por convenção, cada projeto tem pelo menos um repositório externo que serve como agregador do trabalho de todos os envolvidos, e como backup externo do projeto. Esse repositório é geralmente chamado `origin`, mas pode ter qualquer nome. 
+Por convenção, cada projeto tem pelo menos um repositório `remote` que serve como agregador do trabalho de todos os envolvidos, e como backup externo do projeto. Esse repositório é geralmente chamado `origin`, mas pode ter qualquer nome. 
 Usaremos GitHub como repositório externo, pois ele permite repositórios privados gratuitos para estudantes.
 
 ***
 No GitHub, clique em `New repository` para criar um novo ou em `ìmport repository` para copiar um que já existe em outro repositorio online
 
-<img src="figuras/github-new.png" alt="criando seu repositório" width= "90%">
+<img src="figuras/github-new.png" width= "90%">
 
 ***
 Escolha um nome para seu repositório, se ele vai ter `README`, `.gitignore` e um arquivo de licença
 
-<img src="figuras/github-details.png" alt="criando seu repositório" width= "90%">
+<img src="figuras/github-details.png" width= "90%">
 
 ***
-O repositório foi criado vazio, agora precisamos colocar nosso materiais nele. A isso chamamos de `push`. É só seguir as instruções do próprio GitHub:
+O `remote` foi criado vazio, agora precisamos colocar nosso materiais nele. A isso chamamos de `push`. É só seguir as instruções do próprio GitHub:
 
-<img src="figuras/github-empty-repo.png" alt="criando seu repositório" width= "90%">
-
-***
-<img src="figuras/github-add-remote.png" alt="criando seu repositório" width= "90%">
+<img src="figuras/github-empty-repo.png" width= "90%">
 
 ***
-<img src="figuras/github-repo.png" alt="criando seu repositório" width= "90%">
+<img src="figuras/github-add-remote.png" width= "90%">
 
 ***
-Se quisermos copiar um repositório do github para nosso computador, podemos usar o comando git clone <img src="figuras/github-repo.png" alt="criando seu repositório" width= "90%">
+<img src="figuras/github-repo.png" width= "90%">
+
+*** 
+Se o repósitório local tiver um origin, `git status` nos informa se estamos sincronizados ou não.
+
+Sempre que quisermos mandar nossas alterações pro repositório `remote`, após darmos os commits locais, é só digitar:
+```{r, engine = 'bash', eval = FALSE}
+git push origin nomeDoBranch
+```
+
+<img src="figuras/git-push.png" width= "90%">
+
+***
+Se `origin` foi alterado, podemos trazer essa alteração para o repositório local e fazer um merge com apenas um comando. `git pull`. É considerado boa prática, antes de dar um `push`, sempre dar um `pull`, corrigir quaisquer conflitos de `merge`, e só então dar `push`. Isso evita que outras pessoas puxem os conflitos de merge para seus locais antes que você os corrija.
+
+```{r, engine = 'bash', eval = FALSE}
+git pull origin nomeDoBranch
+```
+
+`git pull` puro copia direto do `origin master`
+
+***
+Se quisermos copiar um repositório do github que ainda não temos no nosso computador, podemos usar o comando git clone 
+<img src="figuras/git-clone.png" width= "90%">
+
+***
+Agora explore a interface do GitHub. Tudo que podemos fazer na linha de comando pode ser feito no site.
