@@ -103,6 +103,7 @@ Provavelmente já tem uma versão do Git instalado, senão escolha uma opção abaixo
 1. Baixe o instalador em [Git for Windows](https://git-for-windows.github.io/) .
 2. Execute o instalador e siga as instruções, aceitando as opções padrão.
 
+***
 ## Configurando o Git  
 Para usar o Git, você precisa criar um nome de usuário e um email que serão usados para identificar todas suas ações. Para isso, abra uma janela de terminal, ou a janela do Git for Windows (veja em Programas -> Git -> Gith Bash , e digite as linhas abaixo, substituindo `myName` pelo seu nome de usuário e `MyEmail` pelo seu endereço de email. Seu nome tem de vir entre aspas.
 
@@ -122,12 +123,12 @@ No seu diretório alvo, abra uma janela de terminal (ou Git Bash no Windows) e di
 ```{r, engine = 'bash', eval = FALSE}
 git init repositorioLocal
 ```
-<img src="figuras/git_init.png" alt="criando seu repositório">
+<img src="figuras/git_init.png" alt="criando seu repositório" width= "90%">
 
 ***
 # Informações do seu repositório
 `git init repositorioLocal` cria um diretório com nome `repositorioLocal`, vazio exceto por uma pasta `.git`. Não mexa em nada dentro desta pasta. Podemos ver o estado atual do repósito usando `git status`
-<img src="figuras/git_status.png" alt="Informações do seu repositório">
+<img src="figuras/git_status.png" alt="Informações do seu repositório" width= "90%">
 
 Não temos nenhum arquivo. Vamos corrigir isso
 
@@ -144,7 +145,7 @@ touch README
 ```{r, engine = 'bash', eval = FALSE}
 git status
 ```
-<img src="figuras/git_status2.png" alt="Informações do seu repositório">
+<img src="figuras/git_status2.png" alt="Informações do seu repositório" width= "90%">
 
 
 ***
@@ -159,7 +160,7 @@ Fazer o git registrar que o arquivo mudou é um processo de dois passos passos: `
 git add README
 ```
 
-<img src="figuras/git_add.png" alt="criando seu repositório">
+<img src="figuras/git_add.png" alt="criando seu repositório" width= "90%">
 
 ***
 #Git commit
@@ -184,7 +185,7 @@ Crie e altere vários arquivos , registrando as versões no git
 ***
 # GitKraken
 GitKraken é uma interface gráfica para o Git. Ele não permite modificar os arquivos diretamente, mas mostra uma linha do tempo do repositório, e permite usar os comandos básicos do Git como `add`, `commit`. `branch` e `merge`. 
-<img src="figuras/gitkraken.png" alt="criando seu repositório">
+<img src="figuras/gitkraken.png" alt="criando seu repositório" width= "90%">
 
 ***
 # Até aí nada de mais
@@ -222,9 +223,62 @@ git branch novamutacao #cria o ramo novamutacao
 git checkout novamutacao #muda para o ramo novamutacao
 ```
 
-<img src="figuras/gitkraken-branch.png" alt="criando seu repositório">
+<img src="figuras/gitkraken-branch.png" alt="criando seu repositório" width= "90%">
 
 ***
 Se criarmos um novo arquivo num ramo, ele só existirá nesse ramo:
 
-<img src="figuras/git_branch.png" alt="criando seu repositório">
+<img src="figuras/git_branch.png" alt="criando seu repositório" width= "90%">
+
+***
+#Pra quê isso?
+Branches permitem testar coisas novas sem afetar o código original
+
+O ramo original (sempre chamado de `master` por convenção) pode ser visto como a versão "release", "final" ou "estável" do código: todo o desenvolvimento e experimentações ocorre em branches, e quando estiver tudo funcionando, as alterações são passadas para o branch `master`
+
+Por exemplo, se você quiser experimentar dois algoritmos diferentes para uma função, cria um branch para cada um e testa. O código original fica intocado, você não precisa criar várias cópias do projeto, e todo o histórico fica salvo no repositório. Ao terminar, passa o código vencedor pro `master` usando o comando `merge`
+
+***
+# Merge ou fusão de ramos
+## transferência horizontal de genes entre ramos da árvore filogenética
+`git merge`pega o último commit de um branch e une ele com outro branch. Isto pode gerar conflitos se houverem versões do mesmo arquivo que tenham a mesma linha com conteúdos diferentes.
+
+Para fazer o merge, puxamos o HEAD de um branch pro outro. HEAD é o último commit do branch:
+
+```{r, engine = 'bash', eval = FALSE}
+# puxando de master para outro branch
+git merge master
+```
+<img src="figuras/git-merge-conflict.png" alt="criando seu repositório" width= "90%">
+
+***
+`git merge`junta os arquivos linha por linha. Se não houver conflito, o git junta tudo sem falar nada. Se a mesma linha for diferente nas duas versões do arquivo, o git marca a região de conflito da seguinte forma:
+
+```{r, engine = 'bash', eval = FALSE}
+<<<<<<< HEAD
+texto branch atual
+=======
+texto outro branch
+>>>>>>> arquivo
+```
+
+<img src="figuras/git-merge-conflict-content.png" alt="criando seu repositório" width= "90%">
+
+Para corrigir conflitos de merge, altere o arquivo mantendo a parte que desejar, e dê um novo commit. O git não deixa você alterar nada até que o conflito seja resolvido
+
+***
+# Repositórios externos
+Tudo que fizemos agora foi no repositório local, ou seja, no seu próprio computador. Git é descentralizado, isto é, cada pessoa tem seu repositório local, onde pode fazer suas alterações, e pode enviar essas alterações para um repositório externo. 
+
+Por convenção, cada projeto tem pelo menos um repositório externo que serve como agregador do trabalho de todos os envolvidos, e como backup externo do projeto. Esse repositório é geralmente chamado `origin`, mas pode ter qualquer nome. 
+Usaremos GitHub como repositório externo, pois ele permite repositórios privados gratuitos para estudantes.
+
+***
+No GitHub, clique em `New repository` para criar um novo ou em `ìmport repository` para copiar um que já existe em outro repositorio online
+
+<img src="figuras/github-new.png" alt="criando seu repositório" width= "90%">
+
+***
+Escolha um nome para seu repositório, se ele vai ter `README`, `.gitignore` e um arquivo de licença
+
+<img src="figuras/github-details.png" alt="criando seu repositório" width= "90%">
