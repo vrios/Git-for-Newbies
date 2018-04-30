@@ -52,7 +52,7 @@ Conceitos básicos (por alto):
 - `.gitignore` - arquivo com os nomes e tipos de arquivo que você quer que o git ignore
 
 ***
-# Repositórios online
+# Repositórios online e interfaces gráficas
 São empresas que fornecem espaço para você criar seu `remote` nos servidores delas  
 
 - Vantagens: espaço gratuito, ferramentas de colaboração, comunidade, padrão da indústria, backup online acessível de qualquer lugar, encriptação e ssh  
@@ -67,6 +67,8 @@ GitKraken: software com interface bonitinha para gerenciar seus repositórios, fu
 
 Qt Creator: oferece integração com Git diretamente na interface, principais ações são feitas sem linha de comando
 
+RStudio: oferece integração com Git diretamente na interface, principais ações são feitas sem linha de comando
+
 ***
 # Neste curso, usaremos Git, GitHub e Qt Creator
 ## Passo a passo:
@@ -80,10 +82,10 @@ Qt Creator: oferece integração com Git diretamente na interface, principais açõe
 - Criar um projeto no QtCreator clonando o repositório do GitHub
 - Fazer alterações nos arquivo do projeto
 - Salvar alterações
-- Dar `commit` no repositório local via QtCreator
-- Dar `pull` no repositório local via QtCreator (para evitar problemas de conflito caso alguem mais tenha alterado o projeto)
+- Dar `commit` no repositório local via linha de comando, QtCreator e RStudio
+- Dar `pull` no repositório local via  linha de comando, QtCreator e RStudio (para evitar problemas de conflito caso alguem mais tenha alterado o projeto)
 - Resolver problemas de `merge`
-- Dar `push` no `remote` via QtCreator
+- Dar `push` no `remote` via  linha de comando, QtCreator e RStudio
 
 
 *** 
@@ -114,12 +116,12 @@ Para usar o Git, você precisa criar um nome de usuário e um email que serão usad
 # Como funciona o Git?
 O git tem uma representação inicial dos arquivos no seu reposítório, o estado deles antes de qualquer alteração. Quando você mandar, ele irá comparar as versões atuais de cada arquivo com as versões armazenadas, e irá guardar o que houver de diferente entre a ultima versão registrada e a atual, junto com uma mensagem dizendo o que foi alterado
 
-Importante: O Git não tem iniciativa, só funciona quando você mandar. Ele também só registra os arquivos que você mandar
+Importante: O Git não tem iniciativa, ele só funciona quando você mandar. Ele também só registra os arquivos que você mandar
 
 
 ***
 # Criando seu repositório via linha de comando
-No seu diretório alvo, abra uma janela de terminal (ou Git Bash no Windows) e digite:
+No seu diretório alvo (aquele onde você quer criar seu repositório, ou em um projeto que já existe), abra uma janela de terminal (ou Git Bash no Windows) e digite:
 ```{r, engine = 'bash', eval = FALSE}
 git init repositorioLocal
 ```
@@ -130,17 +132,17 @@ git init repositorioLocal
 `git init repositorioLocal` cria um diretório com nome `repositorioLocal`, vazio exceto por uma pasta `.git`. Não mexa em nada dentro desta pasta. Podemos ver o estado atual do repósito usando `git status`
 <img src="figuras/git_status.png" alt="Informações do seu repositório" width= "90%">
 
-Não temos nenhum arquivo. Vamos corrigir isso
+Não temos nenhum arquivo neste diretório. Vamos corrigir isso
 
 ***
-#README
+# README
 Por tradição, todo repositório tem um arquivo _README_ ou _README.MD_, que descreve os conteúdo e propósito do repositório. vamos criar um. Na linha de comando, digite
 
 ```{r, engine = 'bash', eval = FALSE}
-touch README
+touch README.MD
 ```
 
-`touch` é um comando que cria um arquivo vazio
+`touch` é um comando que cria um arquivo vazio. Você também pode criar um arquivo com seu editor favorito ou colar um existente.
 
 ```{r, engine = 'bash', eval = FALSE}
 git status
@@ -150,11 +152,12 @@ git status
 
 ***
 # Git add
+
 O git percebeu que tem arquivos novos, mas esses arquivos ainda não estão sendo acompanhados. Precisamos dizer para o git adicionar os arquivos ao controle de versão
 
 Fazer o git registrar que o arquivo mudou é um processo de dois passos passos: `git add` e `git commit`
 
-`git add` diz ao git quais arquivos você quer registrar como alterados. Para adicionar todos os arquivo do diretório, o comando é `git add. `
+`git add` diz ao git quais arquivos você quer registrar como alterados. Para adicionar todos os arquivo do diretório, o comando é `git add . `
 
 ```{r, engine = 'bash', eval = FALSE}
 git add README
@@ -163,8 +166,8 @@ git add README
 <img src="figuras/git_add.png" width= "90%">
 
 ***
-#Git commit
-`git add` só adiciona os arquivos ao `staging area`, que é um meio de campo do git: ele diz quas arquivos alterados você quer incluir no seu próximo `commit`.
+# Git commit
+`git add` só adiciona os arquivos ao `staging area`, que é um meio-de-campo do git: ele diz quais arquivos alterados você quer incluir no seu próximo `commit`.
 `commit` signignfica se comprometer, assumir. Dar o `commit`significa assumir as mudanças feitas no arquivo e registrá-las no controle de versão, com uma mensagem descritiva
 
 ```{r, engine = 'bash', eval = FALSE}
@@ -178,18 +181,21 @@ Se você alterar mais de um arquivo de cada vez, é aconselhável fazer o `git add`
 
 Use "commits atômicos": a menor mudança necessária para seu objetivo, de preferência um arquivo por vez
 
-***
 # Mãos à obra
 Crie e altere vários arquivos , registrando as versões no git
 
 ***
-# GitKraken
-GitKraken é uma interface gráfica para o Git. Ele não permite modificar os arquivos diretamente, mas mostra uma linha do tempo do repositório, e permite usar os comandos básicos do Git como `add`, `commit`. `branch` e `merge`. 
+# Interfaces gráficas
+## GitKraken
+
+GitKraken é uma interface gráfica para o Git. Ele não permite editar os arquivos diretamente, mas mostra uma linha do tempo do repositório, e permite usar os comandos básicos do Git como `add`, `commit`. `branch` e `merge`, e algumas funcionalidades avançadas, que não cobriremos aqui. A visualização gráfica da linha do tempo do repositório facilita muito a vida, principalmente quando o repositório é antigo ou várias pessoas colaboram. A vantagem dele é quefunciona em Linux, Windows e OS X, e independe de editores de código como RStudio e QtCreator, o que permite controlar repositórios de qualquer tipo de arquivo.
 <img src="figuras/gitkraken.png" width= "90%">
 
 ***
 # Até aí nada de mais
-Qual a vantagem desse trabalho todo?
+Qual a vantagem desse trabalho todo pra fazer o que você já fazia manualmente?
+
+O Git é uma máquina do tempo. Do mesmo jeito que você armazena os estados do arquivos no histórico do repositório, você pode facilmente voltar a eles e recuperar versões antigas
 
 Cada `commit` tem um RG, chamado de `commit ID`, que nos permite comparar versões dos arquivos, ou reverter para uma versão anterior. Ele também contém um ponteiro para o commit imediatamente anterior a ele. O conjunto dos commits, ligados através de seus ponteiros, permite reconstruir a história do repositório, e navegar por ela
 
@@ -198,9 +204,11 @@ Seu repositório é como uma filogenia de arquivos: desde a origem, cada modificaç
 ```{r, engine = 'bash', eval = FALSE}
 git reset FOSSIL arquivo
 ```
-
+Reseta o arquivo para o ponto que ele estava no commit FOSSIL
+```{r, engine = 'bash', eval = FALSE}
 `git show FOSSIL:arquivo > arquivoMedroso`
-cria um arquivo chamado arquivoMedroso, como o conteudo de `arquivo`no commit FOSSIL. è só abrir arquivoMedroso e copiar e colar o que quiser pra pra arquivo, e dar um comit novo, e depois apagar arquivoMedroso
+```
+cria um arquivo chamado arquivoMedroso, como o conteudo de `arquivo`no commit FOSSIL. É só abrir arquivoMedroso e copiar e colar o que quiser pra o arquivo, dar um comit novo, e depois apagar arquivoMedroso
 
 ***
 Se quisermos reverter diretamente `arquivo`pro estado FOSSIL
@@ -211,12 +219,80 @@ git reset FOSSIL arquivo
 
 CUIDADO: isso muda todo o conteúdo do arquivo pra versão gravada como FOSSIL, tudo que for alterado entre FOSSIL e o estado atual é perdido.
 
-Usando o gitkraken, basta clicar em um commit para ver os arquivos que foram alterados nele. clicar no arquivo mostra o `diff`, isto é, o que foi mudado entre este commit e o commit anterior. Isto não altera o conteúdo dos arquivos
+Usando o GitKraken, basta clicar em um commit para ver os arquivos que foram alterados nele. clicar no arquivo mostra o `diff`, isto é, o que foi mudado entre este commit e o commit anterior. Isto não altera o conteúdo dos arquivos.
+
+***
+# Indo além do básico
+Com `init` criamos nosso repositório, e com `add` e `commit` nós cobrimos 70% das coisas que precisamos fazer para termos o controle de versão de nossos arquivos. `reset` no permite voltar no tempo e recuperar versões anteriores, que cobre mais uns 5%, `merge` (que vamos ver mais à frente) mais uns 15%, e o resto são comandos que se usa raramente, somente quando algo vai errado ou com reppositórios muito grandes. Mas o git brilha mesmo quando damos um passo além: backups online dos nossos dados, e colaboração com outras pessoas. Para isso, usamos _repositórios remotos_
+
+***
+# Repositórios remotos
+Tudo que fizemos agora foi no repositório local, ou seja, no seu próprio computador. Git é descentralizado, isto é, cada pessoa tem seu repositório local, onde pode fazer suas alterações, e pode enviar essas alterações para um ou mais repositórios externos, chamados de `remote`. O remote nada mais é do que uma cópia do seu repositório local, que fica em outro computador, que pode ser o servidor do laboratório, o computador do seu orientador/aluno/colaborador, ou um site que fornece serviço de repositórios como GitHub.
+
+Por convenção, cada projeto tem pelo menos um repositório `remote` que serve como agregador do trabalho de todos os envolvidos, e como backup externo do projeto. Esse repositório é geralmente chamado `origin`, mas pode ter qualquer nome. Cada remoto tem um nome próprio, e está associado a um endereço, como uma url https
+
+Usaremos GitHub como repositório externo, pois ele permite repositórios privados gratuitos para acadêmicos.
+
+***
+No GitHub, clique em `New repository` para criar um repositório novo ou em `ìmport repository` para copiar um que já existe em outro site online
+
+<img src="figuras/github-new.png" width= "90%">
+
+***
+Escolha um nome para seu repositório, se ele vai ter `README`, `.gitignore` e um arquivo de licença
+
+<img src="figuras/github-details.png" width= "90%">
+
+***
+O `remote` foi criado vazio no GitHub, agora precisamos colocar nosso materiais nele. A isso chamamos de `push`. Para dar o push, precisamos dizer ao nosso repositório local o endereço e o nome do nos remote, usando o comando `git remote add`, seguido do nome e enderço do remoto. É só seguir as instruções do próprio GitHub:
+
+<img src="figuras/github-empty-repo.png" width= "90%">
+
+***
+<img src="figuras/github-add-remote.png" width= "90%">
+
+***
+<img src="figuras/github-repo.png" width= "90%">
+
+*** 
+Se o repósitório local tiver um origin, `git status` nos informa se estamos sincronizados ou não, ou ou seja, se há diferença entre o conteúdo do repositório local e o do remoto.
+
+Sempre que quisermos mandar nossas alterações pro repositório origin, após darmos os commits locais, é só digitar:
+```{r, engine = 'bash', eval = FALSE}
+git push origin nomeDoBranch
+```
+
+`push` envia para origin tudo que está no repositório local
+
+<img src="figuras/git-push.png" width= "90%">
+
+***
+Se `origin` foi alterado, podemos trazer essa alteração para o repositório local e fazer um `merge` com apenas um comando. `Merge`é o ato de juntar as diferenças entre versões diferentes do repositório. 
+
+`git pull` é o comando que puxa o conteúdo do remoto para seu loca, e tenta fazer o `merge` automaticamente. Se ele não conseguir, ele vai te avisar. Veja como lidar com isso na sessão de `branches`, abaixo.
+
+É considerado boa prática, antes de dar um `push`, sempre dar um `pull`, corrigir quaisquer conflitos de `merge`, e só então dar `push`. Isso evita que outras pessoas puxem os conflitos de merge do remoto para seus locais antes que você os corrija.
+
+```{r, engine = 'bash', eval = FALSE}
+git pull origin nomeDoBranch
+```
+
+`git pull` puro copia direto do `origin master`
+
+***
+Se quisermos copiar um repositório do github que ainda não temos no nosso computador, podemos usar o comando `git clone`, que é uma junção de `git init`e `git pull`
+
+<img src="figuras/git-clone.png" width= "90%">
+
+***
+Agora explore a interface do GitHub. Tudo que podemos fazer na linha de comando pode ser feito no site. Crie e repositórios e envie arquivos, faça alterações e puxe elas para seu pc. O melhor jeito de aprender os comandos do git é mexendo num repositório
 
 ***
 # Branches
 ## Especiação de arquivos
-Um branch é como uma linha de desenvolvimento alternativa, com seus próprios commits, independente de outros branches
+Um branch é como uma linha de desenvolvimento alternativa, com seus próprios commits, independente de outros branches. Podemos pensar um branch como sendo um evento de cladogênese, em que cada ramo pode ter seus traços (arquivos) alterados independentemente,e novos traços (arquivos) podem surgir ou ser apagados sem afetar os outros ramos.
+
+se você reparar, na linha de comando, o nome do ramos aparece logo após o nome do diretório onde você se encontrar. Atualmente, estamos no ramo _master_, que é o ramo padrão que é criado quando o inicamos o repositórios. 
 
 ```{r, engine = 'bash', eval = FALSE}
 git branch novamutacao #cria o ramo novamutacao
@@ -231,7 +307,7 @@ Se criarmos um novo arquivo num ramo, ele só existirá nesse ramo:
 <img src="figuras/git_branch.png" width= "90%">
 
 ***
-#Pra quê isso?
+# Pra quê isso?
 Branches permitem testar coisas novas sem afetar o código original
 
 O ramo original (sempre chamado de `master` por convenção) pode ser visto como a versão "release", "final" ou "estável" do código: todo o desenvolvimento e experimentações ocorre em branches, e quando estiver tudo funcionando, as alterações são passadas para o branch `master`
@@ -266,56 +342,3 @@ texto outro branch
 
 Para corrigir conflitos de merge, altere o arquivo mantendo a parte que desejar, e dê um novo commit. O git não deixa você alterar nada até que o conflito seja resolvido
 
-***
-# Repositórios externos
-Tudo que fizemos agora foi no repositório local, ou seja, no seu próprio computador. Git é descentralizado, isto é, cada pessoa tem seu repositório local, onde pode fazer suas alterações, e pode enviar essas alterações para um repositório externo, chamado de `remote`. 
-
-Por convenção, cada projeto tem pelo menos um repositório `remote` que serve como agregador do trabalho de todos os envolvidos, e como backup externo do projeto. Esse repositório é geralmente chamado `origin`, mas pode ter qualquer nome. 
-Usaremos GitHub como repositório externo, pois ele permite repositórios privados gratuitos para estudantes.
-
-***
-No GitHub, clique em `New repository` para criar um novo ou em `ìmport repository` para copiar um que já existe em outro repositorio online
-
-<img src="figuras/github-new.png" width= "90%">
-
-***
-Escolha um nome para seu repositório, se ele vai ter `README`, `.gitignore` e um arquivo de licença
-
-<img src="figuras/github-details.png" width= "90%">
-
-***
-O `remote` foi criado vazio, agora precisamos colocar nosso materiais nele. A isso chamamos de `push`. É só seguir as instruções do próprio GitHub:
-
-<img src="figuras/github-empty-repo.png" width= "90%">
-
-***
-<img src="figuras/github-add-remote.png" width= "90%">
-
-***
-<img src="figuras/github-repo.png" width= "90%">
-
-*** 
-Se o repósitório local tiver um origin, `git status` nos informa se estamos sincronizados ou não.
-
-Sempre que quisermos mandar nossas alterações pro repositório `remote`, após darmos os commits locais, é só digitar:
-```{r, engine = 'bash', eval = FALSE}
-git push origin nomeDoBranch
-```
-
-<img src="figuras/git-push.png" width= "90%">
-
-***
-Se `origin` foi alterado, podemos trazer essa alteração para o repositório local e fazer um merge com apenas um comando. `git pull`. É considerado boa prática, antes de dar um `push`, sempre dar um `pull`, corrigir quaisquer conflitos de `merge`, e só então dar `push`. Isso evita que outras pessoas puxem os conflitos de merge para seus locais antes que você os corrija.
-
-```{r, engine = 'bash', eval = FALSE}
-git pull origin nomeDoBranch
-```
-
-`git pull` puro copia direto do `origin master`
-
-***
-Se quisermos copiar um repositório do github que ainda não temos no nosso computador, podemos usar o comando git clone 
-<img src="figuras/git-clone.png" width= "90%">
-
-***
-Agora explore a interface do GitHub. Tudo que podemos fazer na linha de comando pode ser feito no site.
