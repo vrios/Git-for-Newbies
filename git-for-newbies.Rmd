@@ -5,8 +5,8 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   slidy_presentation:
     font_adjustment: + 1
-    highlight: kate
-    smart: false
+    highlight: espresso
+    smart: no
 classoption: aspectratio=169
 ---
 [Controle de versão: como não deixar isso acontecer com você](http://www.phdcomics.com/comics/archive/phd101212s.gif)  
@@ -189,6 +189,7 @@ Crie e altere vários arquivos , registrando as versões no git
 ## GitKraken
 
 GitKraken é uma interface gráfica para o Git. Ele não permite editar os arquivos diretamente, mas mostra uma linha do tempo do repositório, e permite usar os comandos básicos do Git como `add`, `commit`. `branch` e `merge`, e algumas funcionalidades avançadas, que não cobriremos aqui. A visualização gráfica da linha do tempo do repositório facilita muito a vida, principalmente quando o repositório é antigo ou várias pessoas colaboram. A vantagem dele é quefunciona em Linux, Windows e OS X, e independe de editores de código como RStudio e QtCreator, o que permite controlar repositórios de qualquer tipo de arquivo.
+
 <img src="figuras/gitkraken.png" width= "90%">
 
 ***
@@ -223,7 +224,9 @@ Usando o GitKraken, basta clicar em um commit para ver os arquivos que foram alt
 
 ***
 # Indo além do básico
-Com `init` criamos nosso repositório, e com `add` e `commit` nós cobrimos 70% das coisas que precisamos fazer para termos o controle de versão de nossos arquivos. `reset` no permite voltar no tempo e recuperar versões anteriores, que cobre mais uns 5%, `merge` (que vamos ver mais à frente) mais uns 15%, e o resto são comandos que se usa raramente, somente quando algo vai errado ou com reppositórios muito grandes. Mas o git brilha mesmo quando damos um passo além: backups online dos nossos dados, e colaboração com outras pessoas. Para isso, usamos _repositórios remotos_
+Com `init` criamos nosso repositório, e com `add` e `commit` nós cobrimos 70% das coisas que precisamos fazer para termos o controle de versão de nossos arquivos. `reset` no permite voltar no tempo e recuperar versões anteriores, que cobre mais uns 5%, `merge` (que vamos ver mais à frente) mais uns 15%, e o resto são comandos que se usa raramente, somente quando algo vai errado ou com repositórios muito grandes. 
+
+Mas o git brilha mesmo quando damos um passo além: backups online dos nossos dados, e colaboração com outras pessoas. Para isso, usamos _repositórios remotos_
 
 ***
 # Repositórios remotos
@@ -234,7 +237,7 @@ Por convenção, cada projeto tem pelo menos um repositório `remote` que serve com
 Usaremos GitHub como repositório externo, pois ele permite repositórios privados gratuitos para acadêmicos.
 
 ***
-No GitHub, clique em `New repository` para criar um repositório novo ou em `ìmport repository` para copiar um que já existe em outro site online
+No GitHub, clique em `New repository` para criar um repositório novo ou em `import repository` para copiar um que já existe em outro site online
 
 <img src="figuras/github-new.png" width= "90%">
 
@@ -317,7 +320,7 @@ Por exemplo, se você quiser experimentar dois algoritmos diferentes para uma fun
 ***
 # Merge ou fusão de ramos
 ## transferência horizontal de genes entre ramos da árvore filogenética
-`git merge`pega o último commit de um branch e une ele com outro branch. Isto pode gerar conflitos se houverem versões do mesmo arquivo que tenham a mesma linha com conteúdos diferentes.
+`git merge` pega o último commit de um branch e une ele com outro branch. Isto pode gerar conflitos se houverem versões do mesmo arquivo que tenham a mesma linha com conteúdos diferentes.
 
 Para fazer o merge, puxamos o HEAD de um branch pro outro. HEAD é o último commit do branch:
 
@@ -328,7 +331,7 @@ git merge master
 <img src="figuras/git-merge-conflict.png" width= "90%">
 
 ***
-`git merge`junta os arquivos linha por linha. Se não houver conflito, o git junta tudo sem falar nada. Se a mesma linha for diferente nas duas versões do arquivo, o git marca a região de conflito da seguinte forma:
+`git merge` junta os arquivos linha por linha. Se não houver conflito, o git junta tudo sem falar nada. Se a mesma linha for diferente nas duas versões do arquivo, o git marca a região de conflito da seguinte forma:
 
 ```{r, engine = 'bash', eval = FALSE}
 <<<<<<< HEAD
