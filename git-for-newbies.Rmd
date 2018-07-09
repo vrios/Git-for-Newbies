@@ -5,7 +5,11 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   slidy_presentation:
     font_adjustment: + 1
+<<<<<<< HEAD
     highlight: espresso
+=======
+    highlight: zenburn
+>>>>>>> 23cbf2393a0fcb3e067b64eaea77a4332f207b83
     smart: no
 classoption: aspectratio=169
 ---
@@ -93,9 +97,12 @@ RStudio: oferece integração com Git diretamente na interface, principais ações s
 O Git está disponível com instruções de instalação em  [Git](https://git-scm.com/book/pt-br/v1/Primeiros-passos-Instalando-Git).
 
 ### Se você usa Linux
-Provavelmente já tem uma versão do Git instalado, senão escolha uma opção abaixo.
+Provavelmente já tem uma versão do Git instalado (abra um terminal e digite `git` para descobrir), senão escolha uma opção abaixo.
+
 1. Se você usa um Linux derivado do Debian, como Ubuntu ou Mint, abra um terminal e digite `apt-get install git`.
+
 2. Se você usa um Linux derivado do Fedora, digite `yum install git-core`.
+
 3. Se você não sabe de qual distribuição seu Linux é derivado, muito provavelmente é uma versão do Debian/Ubuntu.
 
 ### Se você usa Mac:
@@ -107,7 +114,7 @@ Provavelmente já tem uma versão do Git instalado, senão escolha uma opção abaixo
 
 ***
 ## Configurando o Git  
-Para usar o Git, você precisa criar um nome de usuário e um email que serão usados para identificar todas suas ações. Para isso, abra uma janela de terminal, ou a janela do Git for Windows (veja em Programas -> Git -> Gith Bash , e digite as linhas abaixo, substituindo `myName` pelo seu nome de usuário e `MyEmail` pelo seu endereço de email. Seu nome tem de vir entre aspas.
+Para usar o Git, você precisa criar um nome de usuário e um email que serão usados para identificar todas suas ações. Para isso, abra uma janela de terminal, ou a janela do Git for Windows (veja em Programas -> Git -> Git Bash , e digite as linhas abaixo, substituindo `myName` pelo seu nome de usuário e `MyEmail` pelo seu endereço de email. Seu nome tem de vir entre aspas.
 
 1. `git config --global user.name "myName"`
 2. `git config --global user.email myEmail`
@@ -160,7 +167,8 @@ Fazer o git registrar que o arquivo mudou é um processo de dois passos passos: `
 `git add` diz ao git quais arquivos você quer registrar como alterados. Para adicionar todos os arquivo do diretório, o comando é `git add . `
 
 ```{r, engine = 'bash', eval = FALSE}
-git add README
+git add README.MD
+git status
 ```
 
 <img src="figuras/git_add.png" width= "90%">
