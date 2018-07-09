@@ -9,7 +9,10 @@ output:
     smart: no
 classoption: aspectratio=169
 ---
-[Controle de versão: como não deixar isso acontecer com você](http://www.phdcomics.com/comics/archive/phd101212s.gif)  
+Controle de versão: como não deixar isso acontecer com você
+![](http://www.phdcomics.com/comics/archive/phd101212s.gif)  
+
+***
 - (orientador): "Tire essa parte x, e faça essa outra análise y"  
 - (orientador um mês depois): "Tire essa parte y, e faça essa outra análise x"   
 - (você) Raiva, ódio, desespero,  procurar em que versão estava salvo x
