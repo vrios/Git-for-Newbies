@@ -5,7 +5,7 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   slidy_presentation:
     font_adjustment: + 1
-    highlight: zenburn
+    highlight: espresso
     smart: no
 classoption: aspectratio=169
 ---
@@ -52,7 +52,7 @@ Conceitos básicos (por alto):
 - `.gitignore` - arquivo com os nomes e tipos de arquivo que você quer que o git ignore
 
 ***
-# Repositórios online e interfaces gráficas
+# Repositórios online
 São empresas que fornecem espaço para você criar seu `remote` nos servidores delas  
 
 - Vantagens: espaço gratuito, ferramentas de colaboração, comunidade, padrão da indústria, backup online acessível de qualquer lugar, encriptação e ssh  
@@ -63,6 +63,7 @@ Bitbucket: sem limite de repositórios privados, limita número de colaboradores n
 
 GitHub: Somente repositórios públicos na opção gratuita, pacote educacional gratuito permite repositórios privados, padrão para usuários do R, interface mais amigável
 
+# Interfaces gráficas
 GitKraken: software com interface bonitinha para gerenciar seus repositórios, funciona com qualquer remote
 
 Qt Creator: oferece integração com Git diretamente na interface, principais ações são feitas sem linha de comando
@@ -74,16 +75,16 @@ RStudio: oferece integração com Git diretamente na interface, principais ações s
 ## Passo a passo:
 - Instalar Git e GitKraken
 - Configurar nome de usuário e email no Git 
-- Criar uma conta no GitHub
+- Criar uma conta no GitHub (lembre: GihUb é o site, git é o programa)
 
 - Criar um repositório no GitHub
 - Clonar o repositório do GitHub
 - Fazer alterações nos arquivo do projeto
 - Salvar alterações
-- Dar `commit` no repositório local via linha de comando, QtCreator e RStudio
-- Dar `pull` no repositório local via  linha de comando, QtCreator e RStudio (para evitar problemas de conflito caso alguem mais tenha alterado o projeto)
+- Dar `commit` no repositório local via linha de comando, Gikraken
+- Dar `pull` no repositório local via  linha de comando,GitKraken (para evitar problemas de conflito caso alguem mais tenha alterado o projeto)
 - Resolver problemas de `merge`
-- Dar `push` no `remote` via  linha de comando, QtCreator e RStudio
+- Dar `push` no `remote` via  linha de comando, GitKraken
 
 
 *** 
@@ -113,11 +114,16 @@ Para usar o Git, você precisa criar um nome de usuário e um email que serão usad
 1. `git config --global user.name "myName"`
 2. `git config --global user.email myEmail`
 
+
+Estes dados ficarão associados a cada `commit` que você der. Para máquinas multi-usuário, sempre confira se seu nome e email estão corretos usando `git git config user.name`e `git config user.email`,  <span style="color:red">*antes*</span> de começar a trabalhar
+
 ***
 # Como funciona o Git?
 O git tem uma representação inicial dos arquivos no seu reposítório, o estado deles antes de qualquer alteração. Quando você mandar, ele irá comparar as versões atuais de cada arquivo com as versões armazenadas, e irá guardar o que houver de diferente entre a ultima versão registrada e a atual, junto com uma mensagem dizendo o que foi alterado
 
 Importante: O Git não tem iniciativa, ele só funciona quando você mandar. Ele também só registra os arquivos que você mandar
+
+Pense nessa versão inicial como primeiro fóssil da sua árvore filogenética: é o estado basal dos caracteres, e qualquer mudança será comparada a ela
 
 
 ***
@@ -130,7 +136,7 @@ git init repositorioLocal
 
 ***
 # Informações do seu repositório
-`git init repositorioLocal` cria um diretório com nome `repositorioLocal`, vazio exceto por uma pasta `.git`. Não mexa em nada dentro desta pasta. Podemos ver o estado atual do repósito usando `git status`
+`git init repositorioLocal` cria um diretório com nome `repositorioLocal`, vazio exceto por uma pasta `.git`. Não mexa em nada dentro desta pasta (se mexer explode). Podemos ver o estado atual do repósito usando `git status`
 <img src="figuras/git_status.png" alt="Informações do seu repositório" width= "90%">
 
 Não temos nenhum arquivo neste diretório. Vamos corrigir isso
@@ -143,7 +149,7 @@ Por tradição, todo repositório tem um arquivo _README_ ou _README.MD_, que descr
 touch README.MD
 ```
 
-`touch` é um comando que cria um arquivo vazio. Você também pode criar um arquivo com seu editor favorito ou colar um existente.
+`touch` é um comando que cria um arquivo vazio. Você também pode criar um arquivo com seu editor favorito,ou colar um arquivo existente.
 
 ```{r, engine = 'bash', eval = FALSE}
 git status
@@ -156,7 +162,7 @@ git status
 
 O git percebeu que tem arquivos novos, mas esses arquivos ainda não estão sendo acompanhados. Precisamos dizer para o git adicionar os arquivos ao controle de versão
 
-Fazer o git registrar que o arquivo mudou é um processo de dois passos passos: `git add` e `git commit`
+Fazer o git registrar que o arquivo mudou é um processo de dois passos: `git add` e `git commit`
 
 `git add` diz ao git quais arquivos você quer registrar como alterados. Para adicionar todos os arquivo do diretório, o comando é `git add . `
 
@@ -170,13 +176,16 @@ git status
 ***
 # Git commit
 `git add` só adiciona os arquivos ao `staging area`, que é um meio-de-campo do git: ele diz quais arquivos alterados você quer incluir no seu próximo `commit`.
+
 `commit` signignfica se comprometer, assumir. Dar o `commit`significa assumir as mudanças feitas no arquivo e registrá-las no controle de versão, com uma mensagem descritiva
 
 ```{r, engine = 'bash', eval = FALSE}
 git commit -m "primeiro commit"
 ```
 
-`-m` é um parâmetro que indica a mensagem do `commit`. Se você não usar `-m` o git abre o editor de texto padrão para você digitar a mensagem (geralmente o vim. Se você ficar preso no vim, respire fundo e digite `:q` que ele fecha). O commit mais recente é chamado de `HEAD`
+`-m` é um parâmetro que indica a mensagem do `commit`. Se você não usar `-m` o git abre o editor de texto padrão para você digitar a mensagem (geralmente o `vim`. Se você ficar preso no `vim`, respire fundo e digite `:q` que ele fecha). O commit mais recente é chamado de `HEAD`
+
+O `commit` é a unidade básica do git, tudo gira em torno dele. Use mensagens descritivas das alterações que foram feitas. O conjunto de `commits` do seu repositório representa todas a história dos seus arquivos, desde a criação até a versão atual. Pense em cada `commit como um fóssil
 
 ***
 Se você alterar mais de um arquivo de cada vez, é aconselhável fazer o `git add`e o `git commit` para cada arquivo separadamente (exceto para casos como alterações no .h e .cpp de uma função, onde as aterações são relacionada)
@@ -190,7 +199,7 @@ Crie e altere vários arquivos , registrando as versões no git
 # Interfaces gráficas
 ## GitKraken
 
-GitKraken é uma interface gráfica para o Git. Ele não permite editar os arquivos diretamente, mas mostra uma linha do tempo do repositório, e permite usar os comandos básicos do Git como `add`, `commit`. `branch` e `merge`, e algumas funcionalidades avançadas, que não cobriremos aqui. A visualização gráfica da linha do tempo do repositório facilita muito a vida, principalmente quando o repositório é antigo ou várias pessoas colaboram. A vantagem dele é quefunciona em Linux, Windows e OS X, e independe de editores de código como RStudio e QtCreator, o que permite controlar repositórios de qualquer tipo de arquivo.
+GitKraken é uma interface gráfica para o Git. Ele não permite editar os arquivos diretamente, mas mostra uma linha do tempo do repositório, e permite usar os comandos básicos do Git como `add`, `commit`. `branch` e `merge`, e algumas funcionalidades avançadas, que não cobriremos aqui. A visualização gráfica da linha do tempo do repositório facilita muito a vida, principalmente quando o repositório é antigo ou várias pessoas colaboram. A vantagem dele é que funciona em Linux, Windows e OS X, e independe de editores de código como RStudio e QtCreator, o que permite controlar repositórios de qualquer tipo de arquivo.
 <img src="figuras/gitkraken.png" width= "90%">
 
 ***
@@ -210,10 +219,10 @@ Reseta o arquivo para o ponto que ele estava no commit FOSSIL
 ```{r, engine = 'bash', eval = FALSE}
 `git show FOSSIL:arquivo > arquivoMedroso`
 ```
-cria um arquivo chamado arquivoMedroso, como o conteudo de `arquivo`no commit FOSSIL. É só abrir arquivoMedroso e copiar e colar o que quiser pra o arquivo, dar um comit novo, e depois apagar arquivoMedroso
+cria um arquivo chamado arquivoMedroso, como o conteudo de `arquivo` no commit FOSSIL. É só abrir arquivoMedroso e copiar e colar o que quiser pra o arquivo, dar um comit novo, e depois apagar arquivoMedroso
 
 ***
-Se quisermos reverter diretamente `arquivo`pro estado FOSSIL
+Se quisermos reverter diretamente `arquivo` pro estado FOSSIL
 
 ```{r, engine = 'bash', eval = FALSE}
 git reset FOSSIL arquivo
@@ -292,7 +301,7 @@ Agora explore a interface do GitHub. Tudo que podemos fazer na linha de comando 
 ***
 # Branches
 ## Especiação de arquivos
-Um branch é como uma linha de desenvolvimento alternativa, com seus próprios commits, independente de outros branches. Podemos pensar um branch como sendo um evento de cladogênese, em que cada ramo pode ter seus traços (arquivos) alterados independentemente,e novos traços (arquivos) podem surgir ou ser apagados sem afetar os outros ramos.
+Um branch (ou ramo, ou galho) é como uma linha de desenvolvimento alternativa, com seus próprios commits, independente de outros branches. Podemos pensar um branch como sendo um evento de cladogênese, em que cada ramo pode ter seus traços (arquivos) alterados independentemente,e novos traços (arquivos) podem surgir ou ser apagados sem afetar os outros ramos.
 
 se você reparar, na linha de comando, o nome do ramos aparece logo após o nome do diretório onde você se encontrar. Atualmente, estamos no ramo _master_, que é o ramo padrão que é criado quando o inicamos o repositórios. 
 
@@ -314,7 +323,7 @@ Branches permitem testar coisas novas sem afetar o código original
 
 O ramo original (sempre chamado de `master` por convenção) pode ser visto como a versão "release", "final" ou "estável" do código: todo o desenvolvimento e experimentações ocorre em branches, e quando estiver tudo funcionando, as alterações são passadas para o branch `master`
 
-Por exemplo, se você quiser experimentar dois algoritmos diferentes para uma função, cria um branch para cada um e testa. O código original fica intocado, você não precisa criar várias cópias do projeto, e todo o histórico fica salvo no repositório. Ao terminar, passa o código vencedor pro `master` usando o comando `merge`
+Por exemplo, se você quiser experimentar dois algoritmos diferentes para uma função, crie um branch para cada um e teste. O código original fica intocado, você não precisa criar várias cópias do projeto, e todo o histórico fica salvo no repositório. Ao terminar, passa o código vencedor pro `master` usando o comando `merge`
 
 ***
 # Merge ou fusão de ramos
