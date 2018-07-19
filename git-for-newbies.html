@@ -431,7 +431,11 @@ list-style-type: none;
   <p class="author">
 Vitor Rios
   </p>
+<<<<<<< HEAD
   <p class="date">16 julho, 2018</p>
+=======
+  <p class="date">16 Julho, 2018</p>
+>>>>>>> e3b24e329ddb9b58289cf711f3e92494f43b3d7e
 </div>
 <div class="slide section level1">
 
@@ -603,7 +607,11 @@ Vitor Rios
 <p>Seu repositório é como uma filogenia de arquivos: desde a origem, cada modificação fica registrada no ramo da árvore (cada commit é um fóssil), e o táxon terminal do ramo é o estado atual do repositório. Se quisermos reverter para um estado anterior, é só indicar qual fóssil queremos acessar:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="fu">git</span> reset FOSSIL arquivo</a></code></pre></div>
 <p>Reseta o arquivo para o ponto que ele estava no commit FOSSIL</p>
+<<<<<<< HEAD
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">`</span><span class="fu">git</span> show FOSSIL:arquivo <span class="op">&gt;</span> arquivoMedroso<span class="kw">`</span></a></code></pre></div>
+=======
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> show FOSSIL:arquivo <span class="op">&gt;</span> arquivoMedroso</code></pre></div>
+>>>>>>> e3b24e329ddb9b58289cf711f3e92494f43b3d7e
 <p>cria um arquivo chamado arquivoMedroso, como o conteudo de <code>arquivo</code> no commit FOSSIL. É só abrir arquivoMedroso e copiar e colar o que quiser pra o arquivo, dar um comit novo, e depois apagar arquivoMedroso</p>
 </div>
 <div class="slide section level1">
@@ -657,7 +665,7 @@ Vitor Rios
 <div class="slide section level1">
 
 <p>Se <code>origin</code> foi alterado, podemos trazer essa alteração para o repositório local e fazer um <code>merge</code> com apenas um comando. <code>Merge</code>é o ato de juntar as diferenças entre versões diferentes do repositório.</p>
-<p><code>git pull</code> é o comando que puxa o conteúdo do remoto para seu loca, e tenta fazer o <code>merge</code> automaticamente. Se ele não conseguir, ele vai te avisar. Veja como lidar com isso na sessão de <code>branches</code>, abaixo.</p>
+<p><code>git pull</code> é o comando que puxa o conteúdo do remoto para seu local, e tenta fazer o <code>merge</code> automaticamente. Se ele não conseguir, ele vai te avisar. Veja como lidar com isso na sessão de <code>branches</code>, abaixo.</p>
 <p>É considerado boa prática, antes de dar um <code>push</code>, sempre dar um <code>pull</code>, corrigir quaisquer conflitos de <code>merge</code>, e só então dar <code>push</code>. Isso evita que outras pessoas puxem os conflitos de merge do remoto para seus locais antes que você os corrija.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="fu">git</span> pull origin nomeDoBranch</a></code></pre></div>
 <p><code>git pull</code> puro copia direto do <code>origin master</code></p>

@@ -221,7 +221,7 @@ git reset FOSSIL arquivo
 ```
 Reseta o arquivo para o ponto que ele estava no commit FOSSIL
 ```{r, engine = 'bash', eval = FALSE}
-`git show FOSSIL:arquivo > arquivoMedroso`
+git show FOSSIL:arquivo > arquivoMedroso
 ```
 cria um arquivo chamado arquivoMedroso, como o conteudo de `arquivo` no commit FOSSIL. É só abrir arquivoMedroso e copiar e colar o que quiser pra o arquivo, dar um comit novo, e depois apagar arquivoMedroso
 
@@ -284,7 +284,7 @@ git push origin nomeDoBranch
 ***
 Se `origin` foi alterado, podemos trazer essa alteração para o repositório local e fazer um `merge` com apenas um comando. `Merge`é o ato de juntar as diferenças entre versões diferentes do repositório. 
 
-`git pull` é o comando que puxa o conteúdo do remoto para seu loca, e tenta fazer o `merge` automaticamente. Se ele não conseguir, ele vai te avisar. Veja como lidar com isso na sessão de `branches`, abaixo.
+`git pull` é o comando que puxa o conteúdo do remoto para seu local, e tenta fazer o `merge` automaticamente. Se ele não conseguir, ele vai te avisar. Veja como lidar com isso na sessão de `branches`, abaixo.
 
 É considerado boa prática, antes de dar um `push`, sempre dar um `pull`, corrigir quaisquer conflitos de `merge`, e só então dar `push`. Isso evita que outras pessoas puxem os conflitos de merge do remoto para seus locais antes que você os corrija.
 
