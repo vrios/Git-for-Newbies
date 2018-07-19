@@ -10,6 +10,7 @@ output:
 classoption: aspectratio=169
 ---
 Controle de versão: como não deixar isso acontecer com você
+
 ![](http://www.phdcomics.com/comics/archive/phd101212s.gif)  
 
 ***
